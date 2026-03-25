@@ -728,8 +728,8 @@ input,select,textarea{font-size:16px!important;-webkit-appearance:none;appearanc
 // ════════════════════════════════════════
 //  CONFIG — ແກ້ຄ່າ 2 ບັນທັດນີ້
 // ════════════════════════════════════════
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://homqmtkiziariocverjk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvbXFtdGtpemlhcmlvY3ZlcmprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NzEwOTAsImV4cCI6MjA4ODE0NzA5MH0.Lt-f9dCgxPPENtVx3wJgHkiSREf_OwXWvH4N-ixx1lg';
 const STORAGE_BUCKET = 'product-images';
 
 // ════════════════════════════════════════
@@ -1419,80 +1419,4 @@ function showNotif(msg, type='info') {
   notifTimer = setTimeout(() => { el.style.display = 'none'; }, 3500);
 }
 </script>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ຂາຍດີ Seller — ລະບົບຜູ້ຂາຍ</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  :root {
-    --gold: #c9a84c;
-    --gold-light: #f0d080;
-    --gold-dark: #8b6914;
-    --black: #0a0a0a;
-    --dark: #111218;
-  }
-  body {
-    background: var(--black);
-    color: white;
-    font-family: 'Sarabun', 'Noto Sans Lao', sans-serif;
-    margin: 0;
-  }
-  .status-bar {
-    padding: 12px;
-    text-align: center;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s;
-  }
-  .status-success { background: #065f46; color: #34d399; }
-  .status-error { background: #7f1d1d; color: #f87171; }
-  .status-loading { background: #1e293b; color: #94a3b8; }
-</style>
-</head>
-<body>
 
-<div id="connection-status" class="status-bar status-loading">
-  ⏳ ກຳລັງເຊື່ອມຕໍ່ຖານຂໍ້ມູນ...
-</div>
-
-<div style="padding: 20px; text-align: center;">
-  <h1 style="color: var(--gold); font-size: 24px;">KhaiDee Seller System</h1>
-  <p>ຍິນດີຕ້ອນຮັບສູ່ລະບົບຈັດການຜູ້ຂາຍ</p>
-</div>
-
-<script>
-  // ⚙️ ตั้งค่าการเชื่อมต่อ Supabase ด้วยข้อมูลที่คุณให้มา
-  const SUPABASE_URL = 'https://homqmtkiziariocverjk.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvbXFtdGtpemlhcmlvY3ZlcmprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NzEwOTAsImV4cCI6MjA4ODE0NzA5MH0.Lt-f9dCgxPPENtVx3wJgHkiSREf_OwXWvH4N-ixx1lg';
-
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  async function checkConnection() {
-    const statusEl = document.getElementById('connection-status');
-    try {
-      // ทดสอบดึงข้อมูลจากตาราง (สมมติว่าชื่อตารางคือ products)
-      const { data, error } = await _supabase.from('products').select('id').limit(1);
-      
-      if (error && error.code !== 'PGRST116') throw error; 
-
-      statusEl.textContent = "✅ ເຊື່ອມຕໍ່ຖານຂໍ້ມູນ KhaiDee ສຳເລັດ";
-      statusEl.className = "status-bar status-success";
-    } catch (err) {
-      console.error('Connection error:', err);
-      statusEl.textContent = "❌ ເຊື່ອມຕໍ່ບໍ່ສຳເລັດ: ตรวจสอบตารางในฐานข้อมูล";
-      statusEl.className = "status-bar status-error";
-    }
-  }
-
-  // เริ่มการตรวจสอบเมื่อโหลดหน้าเว็บ
-  document.addEventListener('DOMContentLoaded', checkConnection);
-</script>
-
-</body>
-</html>
