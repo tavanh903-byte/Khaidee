@@ -9,7 +9,25 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Sarabun:wght@300;400;600;700&family=Noto+Sans+Lao:wght@300;400;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+// Load Supabase from fastest CDN with fallback
+(function() {
+  var cdns = [
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
+    'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.3/umd/supabase.min.js'
+  ];
+  var idx = 0;
+  function loadNext() {
+    if (idx >= cdns.length) return;
+    var s = document.createElement('script');
+    s.src = cdns[idx++];
+    s.onerror = loadNext;
+    document.head.appendChild(s);
+  }
+  loadNext();
+})();
+</script>
 
 <style>
 :root {
@@ -762,7 +780,7 @@ let currentOrderFilter = 'all';
 window.addEventListener('DOMContentLoaded', async () => {
   // Wait for Supabase CDN to load (retry up to 5s)
   let tries = 0;
-  while (!initSupabase() && tries < 50) {
+  while (!initSupabase() && tries < 100) {
     await new Promise(r => setTimeout(r, 100));
     tries++;
   }
